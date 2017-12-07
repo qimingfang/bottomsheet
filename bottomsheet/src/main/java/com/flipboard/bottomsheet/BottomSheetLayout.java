@@ -96,7 +96,7 @@ public class BottomSheetLayout extends FrameLayout {
     private Animator currentAnimator;
     private CopyOnWriteArraySet<OnSheetDismissedListener> onSheetDismissedListeners = new CopyOnWriteArraySet<>();
     private CopyOnWriteArraySet<OnSheetStateChangeListener> onSheetStateChangeListeners = new CopyOnWriteArraySet<>();
-    private OnLayoutChangeListener sheetViewOnLayoutChangeListener;
+//    private OnLayoutChangeListener sheetViewOnLayoutChangeListener;
     private View dimView;
     private boolean interceptContentTouch = true;
     private int currentSheetViewHeight;
@@ -671,21 +671,21 @@ public class BottomSheetLayout extends FrameLayout {
 
         // sheetView should always be anchored to the bottom of the screen
         currentSheetViewHeight = sheetView.getMeasuredHeight();
-        sheetViewOnLayoutChangeListener = new OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View sheetView, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                int newSheetViewHeight = sheetView.getMeasuredHeight();
-                if (state != State.HIDDEN && newSheetViewHeight < currentSheetViewHeight) {
-                    // The sheet can no longer be in the expanded state if it has shrunk
-                    if (state == State.EXPANDED) {
-                        setState(State.PEEKED);
-                    }
-                    setSheetTranslation(newSheetViewHeight);
-                }
-                currentSheetViewHeight = newSheetViewHeight;
-            }
-        };
-        sheetView.addOnLayoutChangeListener(sheetViewOnLayoutChangeListener);
+//        sheetViewOnLayoutChangeListener = new OnLayoutChangeListener() {
+//            @Override
+//            public void onLayoutChange(View sheetView, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                int newSheetViewHeight = sheetView.getMeasuredHeight();
+//                if (state != State.HIDDEN && newSheetViewHeight < currentSheetViewHeight) {
+//                    // The sheet can no longer be in the expanded state if it has shrunk
+//                    if (state == State.EXPANDED) {
+//                        setState(State.PEEKED);
+//                    }
+//                    setSheetTranslation(newSheetViewHeight);
+//                }
+//                currentSheetViewHeight = newSheetViewHeight;
+//            }
+//        };
+//        sheetView.addOnLayoutChangeListener(sheetViewOnLayoutChangeListener);
     }
 
     /**
@@ -704,7 +704,7 @@ public class BottomSheetLayout extends FrameLayout {
         // Otherwise a new sheet might be shown when the caller called dismiss after a showWithSheet call, which would be 
         runAfterDismiss = runAfterDismissThis;
         final View sheetView = getSheetView();
-        sheetView.removeOnLayoutChangeListener(sheetViewOnLayoutChangeListener);
+//        sheetView.removeOnLayoutChangeListener(sheetViewOnLayoutChangeListener);
         cancelCurrentAnimation();
         ObjectAnimator anim = ObjectAnimator.ofFloat(this, SHEET_TRANSLATION, 0);
         anim.setDuration(ANIMATION_DURATION);
